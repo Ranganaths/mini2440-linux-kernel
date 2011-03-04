@@ -40,7 +40,7 @@ typedef struct {
 	int prescale;
 }ADC_DEV;
 
-DECLARE_MUTEX(ADC_LOCK);
+DEFINE_SEMAPHORE(ADC_LOCK);
 static int OwnADC = 0;
 
 static ADC_DEV adcdev;

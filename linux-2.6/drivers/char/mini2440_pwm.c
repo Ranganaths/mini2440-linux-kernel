@@ -97,7 +97,9 @@ static int s3c24xx_pwm_close(struct inode *inode, struct file *file)
 }
 
 
-static int s3c24xx_pwm_ioctl(struct inode *inode, struct file *file, unsigned int cmd, unsigned long arg)
+static long s3c24xx_pwm_ioctl(struct file *file, 
+	unsigned int cmd, 
+	unsigned long arg)
 {
 	switch (cmd) {
 	case PWM_IOCTL_SET_FREQ:
@@ -119,7 +121,7 @@ static struct file_operations dev_fops = {
     .owner   =   THIS_MODULE,
     .open    =   s3c24xx_pwm_open,
     .release =   s3c24xx_pwm_close, 
-    .ioctl   =   s3c24xx_pwm_ioctl,
+    .unlocked_ioctl   =   s3c24xx_pwm_ioctl,
 };
 
 static struct miscdevice misc = {
@@ -132,7 +134,7 @@ static int __init dev_init(void)
 {
 	int ret;
 
-	init_MUTEX(&lock);
+	sema_init(&lock,1);
 	ret = misc_register(&misc);
 
 	printk (DEVICE_NAME"\tinitialized\n");

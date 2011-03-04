@@ -40,7 +40,7 @@ static unsigned int led_cfg_table [] = {
 	S3C2410_GPIO_OUTPUT,
 };
 
-static int sbc2440_leds_ioctl(
+static long sbc2440_leds_ioctl(
 	struct file *file, 
 	unsigned int cmd, 
 	unsigned long arg)
