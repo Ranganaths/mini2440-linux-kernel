@@ -27,6 +27,7 @@
 #include "uda134x.h"
 
 
+#define POWER_OFF_ON_STANDBY 1
 #define UDA134X_RATES SNDRV_PCM_RATE_8000_48000
 #define UDA134X_FORMATS (SNDRV_PCM_FMTBIT_S8 | SNDRV_PCM_FMTBIT_S16_LE | \
 		SNDRV_PCM_FMTBIT_S18_3LE | SNDRV_PCM_FMTBIT_S20_3LE)
@@ -486,7 +487,7 @@ static struct snd_soc_dai_driver uda134x_dai = {
 static int uda134x_soc_probe(struct snd_soc_codec *codec)
 {
 	struct uda134x_priv *uda134x;
-	struct uda134x_platform_data *pd = dev_get_drvdata(codec->card->dev);
+	struct uda134x_platform_data *pd = codec->card->dev->platform_data;
 	int ret;
 
 	printk(KERN_INFO "UDA134X SoC Audio Codec\n");
